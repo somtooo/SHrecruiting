@@ -630,31 +630,32 @@ jQuery(function ($) {
             'section':'leverage_form',
             'leverage_form_wpnonce':wpnonce
         };
-        console.log( "this is url" + url);
 
-        $.valid_email = false;
+        $.valid_email = true;
+        $('#leverage-form .field-email').removeClass('invalid').addClass('valid');
 
-        timer = setTimeout(function() {
 
-            $.post(url, data, function(response) {
-                try {
-                    JSON.parse(response);
-                    var obj = JSON.parse(response);
-                    console.log(obj);
+        // timer = setTimeout(function() {
 
-                    if(obj.status == 'invalid' && obj.fields.email == true) {
-                        $('#leverage-form .field-email').removeClass('valid').addClass('invalid');
+        //     // $.post(url, data, function(response) {
+        //     //     try {
+        //     //         JSON.parse(response);
+        //     //         var obj = JSON.parse(response);
+        //     //         console.log(obj);
 
-                    } else {
-                        $('#leverage-form .field-email').removeClass('invalid').addClass('valid');
-                        $.valid_email = true;
-                    }
+        //     //         if(obj.status == 'invalid' && obj.fields.email == true) {
+        //     //             $('#leverage-form .field-email').removeClass('valid').addClass('invalid');
 
-                } catch (e) {
-                    alert('Sorry. We are experiencing problems with our server. Come back later to send your message.');
-                }
-            })
-        }, 1000)
+        //     //         } else {
+        //     //             $('#leverage-form .field-email').removeClass('invalid').addClass('valid');
+        //     //             $.valid_email = true;
+        //     //         }
+
+        //     //     } catch (e) {
+        //     //         alert('Sorry. We are experiencing problems with our server. Come back later to send your message.');
+        //     //     }
+        //     // })
+        // }, 1000)
     })
 
     var current_fs, next_fs, previous_fs;
@@ -683,6 +684,7 @@ jQuery(function ($) {
                 }
 
                 if($.valid_email === false) {
+                    console.log("yeah")
                     $('#leverage-form .field-email').removeClass('valid').addClass('invalid');
                 }
             })
@@ -890,30 +892,30 @@ jQuery(function ($) {
     // Submission
     var leverage_form     = $('#leverage-form');
 
-    leverage_form.submit(function(e) {
-        e.preventDefault();
+    // leverage_form.submit(function(e) {
+    //     e.preventDefault();
 
-        if ($('input[name="reCAPTCHA"]').length) {
-            let reCAPTCHA = $('input[name="reCAPTCHA"]');
+    //     if ($('input[name="reCAPTCHA"]').length) {
+    //         let reCAPTCHA = $('input[name="reCAPTCHA"]');
 
-            grecaptcha.ready(function() {
-                grecaptcha.execute(reCAPTCHA.data('key'), { action: "create_comment" }).then(function(token) {
-                    reCAPTCHA.val(token);
-                })
-            })
-        }
+    //         grecaptcha.ready(function() {
+    //             grecaptcha.execute(reCAPTCHA.data('key'), { action: "create_comment" }).then(function(token) {
+    //                 reCAPTCHA.val(token);
+    //             })
+    //         })
+    //     }
 
-        var url = leverage_form.attr('action');
+    //     var url = leverage_form.attr('action');
 
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: leverage_form.serialize(),
-            success: function() {
-                submissionDone();
-            }
-        })
-    })
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: url,
+    //         data: leverage_form.serialize(),
+    //         success: function() {
+    //             submissionDone();
+    //         }
+    //     })
+    // })
 })
 
 /*----------------------------------------------
